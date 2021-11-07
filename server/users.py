@@ -1,8 +1,17 @@
 from sql_fun.users import users_select_all
 from bd import conn
+from libs.request_set import request_set_array
 
 
-def mapGetUser(users):
+def users_get_params_query(request):
+    params = {}
+    name_array = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
+    request_set_array(request, name_array, params)
+    print(params)
+    return params
+
+
+def map_get_user(users):
     res = []
     for user in users:
         res.append({
@@ -18,10 +27,10 @@ def mapGetUser(users):
     return res
 
 
-def getUsers():
-    your_sql = users_select_all()
+def get_users(params):
+    your_sql = users_select_all(**params)
     cur = conn.cursor()
     cur.execute(your_sql)
     user = cur.fetchall()
-    userMap = mapGetUser(user)
+    userMap = map_get_user(user)
     return userMap
