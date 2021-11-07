@@ -1,13 +1,33 @@
 from sql_fun.users import users_select_all
 from bd import conn
-from libs.request_set import request_set_array
+from libs.request_set import request_set_array, request_sort_set_array
+from libs.limit_offset import limit_and_offset
+from libs.parsring_order import parsring_order
+
+
+def get_params_query_filter(request, params_sql):
+    name_array = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
+    request_set_array(request, name_array, params_sql)
+
+
+def get_params_query_sort(request, params_sql):
+    params_sort = {}
+    name_array_column = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
+    name_array_query = ['sort_fio', 'sort_nik', 'sort_email', 'sort_is_admin', 'sort_is_user', 'sort_is_active']
+    request_sort_set_array(request, name_array_column, name_array_query, params_sort)
+    params_sql['order'] = parsring_order(params_sort)
 
 
 def users_get_params_query(request):
-    params = {}
-    name_array = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
-    request_set_array(request, name_array, params)
-    return params
+    limit, offset = limit_and_offset(request)
+    params_sql = {
+        'limit': limit,
+        'offset': offset,
+    }
+    get_params_query_filter(request, params_sql)
+    get_params_query_sort(request, params_sql)
+
+    return params_sql
 
 
 def map_get_user(users):
@@ -26,7 +46,8 @@ def map_get_user(users):
     return res
 
 
-def get_users(params):
+def get_users(request):
+    params = users_get_params_query(request)
     your_sql = users_select_all(**params)
     print(your_sql)
     cur = conn.cursor()
