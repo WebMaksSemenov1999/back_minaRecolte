@@ -7,7 +7,6 @@ def users_get_params_query(request):
     params = {}
     name_array = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
     request_set_array(request, name_array, params)
-    print(params)
     return params
 
 
@@ -29,6 +28,7 @@ def map_get_user(users):
 
 def get_users(params):
     your_sql = users_select_all(**params)
+    print(your_sql)
     cur = conn.cursor()
     cur.execute(your_sql)
     user = cur.fetchall()

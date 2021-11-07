@@ -8,10 +8,10 @@ from flask import request
 class Users(Resource):
     def get(self):
         limit, offset = limit_and_offset(request)
-        # paramsMap = users_get_params_query(request)
+        paramsMap = users_get_params_query(request)
         params = {
             'limit': limit,
             'offset': offset,
-            # **paramsMap,
+            **paramsMap,
         }
         return get_users(params)
