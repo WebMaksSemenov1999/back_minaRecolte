@@ -1,10 +1,9 @@
 def limit_and_offset(request):
     limit = 20
     offset = 0
-    if request.args.get('limit') is not None:
-        print('is not None')
-        if int(request.args.get('limit')) < limit:
-            limit = request.args.get('limit')
-    if request.args.get('offset') is not None:
-        offset = request.args.get('offset')
+    if request['limit'] is not None:
+        if int(request['limit']) < limit:
+            limit = request['limit']
+    if request['offset'] is not None:
+        offset = request['offset']
     return str(limit), str(offset)
