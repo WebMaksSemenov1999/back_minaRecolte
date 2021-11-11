@@ -3,13 +3,39 @@ from bd import conn
 from libs.request_set import request_set_array, request_sort_set_array, request_json
 from libs.limit_offset import limit_and_offset
 from libs.parsring_order import parsring_order
-# from jsonschema import validate
-from flask_pydantic import validate
+from libs.validate.validate import validate
+
+from libs.template.validate_template import is_option_type_str, is_option_type_boolean_string
 
 
 # валидация параметров для получение users admin
 def validate_params_query_all(params):
-    pass
+    schema = {
+        "fio": {
+           **is_option_type_str
+        },
+        "nik": {
+            **is_option_type_str
+        },
+        "email": {
+               **is_option_type_str
+        },
+        "is_active": {
+            **is_option_type_boolean_string,
+        },
+        "is_user": {
+            **is_option_type_boolean_string,
+        },
+        "is_admin": {
+            **is_option_type_boolean_string,
+        }
+
+    }
+    data = {
+        "nik": '1'
+    }
+    errors = validate(data, schema)
+    print(errors)
 
 
 # Параметры фильтров для получение users admin
@@ -63,7 +89,7 @@ def map_get_user(users):
 # получение users admin в виде json
 def get_users(request):
     params_request = request_json(request)
-    # validate_params_query_all(params_request)
+    validate_params_query_all(params_request)
     # params = get_params_query_all(params_request)
     your_sql = users_select_all(**params_request)
     cur = conn.cursor()
