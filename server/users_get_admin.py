@@ -5,7 +5,7 @@ from libs.limit_offset import limit_and_offset
 from libs.parsring_order import parsring_order
 from libs.validate.validate import validate
 
-from libs.template.validate_template import is_option_type_str, is_option_type_boolean_string
+from libs.template.validate_template import is_option_type_str, is_option_type_boolean_string, limit_offset, params_order
 
 
 # валидация параметров для получение users admin
@@ -28,20 +28,40 @@ def validate_params_query_all(params):
         },
         "is_admin": {
             **is_option_type_boolean_string,
+        },
+        "limit": {
+            **limit_offset
+        },
+        "offset": {
+            **limit_offset
+        },
+        "sort_fio": {
+            **params_order,
+        },
+        "sort_nik": {
+            **params_order,
+        },
+        "sort_email": {
+            **params_order,
+        },
+        "sort_is_admin": {
+            **params_order,
+        },
+        "sort_is_user": {
+            **params_order,
+        },
+        "sort_is_active": {
+            **params_order,
         }
-
     }
-    data = {
-        "nik": '1'
-    }
-    errors = validate(data, schema)
+    errors = validate(params, schema)
     print(errors)
 
 
 # Параметры фильтров для получение users admin
-def get_params_query_filter(request, params_sql):
-    name_array = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
-    request_set_array(request, name_array, params_sql)
+# def get_params_query_filter(request, params_sql):
+#     name_array = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
+#     request_set_array(request, name_array, params_sql)
 
 
 # Параметры сортировка для получение users admin
@@ -64,7 +84,6 @@ def get_params_query_all(params_request):
     }
 
     get_params_query_sort(params_request, params_sql)
-    get_params_query_filter(params_request, params_sql)
 
     return params_sql
 
@@ -90,8 +109,8 @@ def map_get_user(users):
 def get_users(request):
     params_request = request_json(request)
     validate_params_query_all(params_request)
-    # params = get_params_query_all(params_request)
-    your_sql = users_select_all(**params_request)
+    params = get_params_query_all(params_request)
+    your_sql = users_select_all(**params)
     cur = conn.cursor()
     cur.execute(your_sql)
     user = cur.fetchall()

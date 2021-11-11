@@ -1,5 +1,5 @@
 def request_set(request, name, params_object):
-    if request.get[name] is not None:
+    if name in request:
         params_object[name] = request[name]
 
 
@@ -12,7 +12,7 @@ def request_sort_set_array(request, name_array_column, name_array_query, params_
     index = -1
     for name in name_array_query:
         index = index + 1
-        if request.get[name] is not None:
+        if name in request:
             params_object[name_array_column[index]] = request[name]
 
 

@@ -1,5 +1,5 @@
 -- параметры
--- limit, offeset,nik,email,is_active,is_admin,is_user
+-- limit, offset,nik,email,is_active,is_admin,is_user
 
 
 {% sql 'users_select_all', note='получить всех пользователей для админа' %}

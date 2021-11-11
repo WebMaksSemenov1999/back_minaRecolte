@@ -19,6 +19,16 @@ is_option_type_boolean_string = {
 limit_offset = {
     "regulations": {
         "is_option": True,
-
+        "is_int": {
+            "errors": "данное поле является целым числом",
+        },
+    },
+}
+params_order = {
+    "regulations": {
+        "is_option": True,
+        "is_boolean": {
+            "errors": "данное поле имеет значения true, false",
+        },
     },
 }

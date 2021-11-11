@@ -1,5 +1,5 @@
-from libs.validate.errors_create_array import errors_create_array
-from libs.validate.is_object import is_object
+from libs.validate.libs.errors_create_array import errors_create_array
+from libs.validate.libs.is_object import is_object
 
 
 def is_required(data, schema, elem, errors):

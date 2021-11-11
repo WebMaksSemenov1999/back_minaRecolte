@@ -1,4 +1,4 @@
-from libs.validate.errors_create_array import errors_create_array
+from libs.validate.libs.errors_create_array import errors_create_array
 
 
 def is_type(data, schema, elem, errors):
