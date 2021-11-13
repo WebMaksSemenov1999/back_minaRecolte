@@ -1,6 +1,6 @@
 from flask_restful import Resource
 
-from server.users_get_admin import get_users
+from server.users.users_get_admin import get_users
 from flask import request
 
 

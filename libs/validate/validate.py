@@ -26,8 +26,5 @@ def validate(data, schema):
             is_int(data, schema[elem]['regulations']['is_int'], elem, errors)
         if 'is_boolean' in schema[elem]['regulations']:
             is_boolean(data, schema[elem]['regulations']['is_boolean'], elem, errors)
-    print(errors)
-    print(len(errors.keys()))
     if not len(errors.keys()) == 0:
-        print('errors')
-        abort(400)
+        abort(400, errors)
