@@ -54,8 +54,7 @@ def validate_params_query_all(params):
             **params_order,
         }
     }
-    errors = validate(params, schema)
-    print(errors)
+    validate(params, schema)
 
 
 # Параметры фильтров для получение users admin
