@@ -4,7 +4,7 @@ from libs.request_set import request_set_array, request_sort_set_array, request_
 from libs.limit_offset import limit_and_offset
 from libs.parsring_order import parsring_order
 from libs.validate.validate import validate
-
+from libs.token.token import validate_admin
 from libs.template.validate_template import is_option_type_str, is_option_type_boolean_string, limit_offset, params_order
 
 
@@ -106,12 +106,18 @@ def map_get_user(users):
 
 # получение users admin в виде json
 def get_users(request):
+    users_my = validate_admin(request)
+    # параметры мап
     params_request = request_json(request)
+    # параметры валидация
     validate_params_query_all(params_request)
+    # параметры
     params = get_params_query_all(params_request)
+    # sql запрос запуск
     your_sql = users_select_all(**params)
     cur = conn.cursor()
     cur.execute(your_sql)
     user = cur.fetchall()
+    # sql запрос перевод в json
     userMap = map_get_user(user)
     return userMap
