@@ -1,5 +1,5 @@
 from sql_fun.users import users_select_all
-from bd import conn
+from bd import cur
 from libs.request_set import request_set_array, request_sort_set_array, request_json
 from libs.limit_offset import limit_and_offset
 from libs.parsring_order import parsring_order
@@ -115,7 +115,6 @@ def get_users(request):
     params = get_params_query_all(params_request)
     # sql запрос запуск
     your_sql = users_select_all(**params)
-    cur = conn.cursor()
     cur.execute(your_sql)
     user = cur.fetchall()
     # sql запрос перевод в json
