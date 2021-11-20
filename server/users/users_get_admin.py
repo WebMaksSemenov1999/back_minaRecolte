@@ -1,11 +1,12 @@
+from libs.order.order_generation import order_generation
 from sql_fun.users import users_select_all
 from bd import cur
-from libs.request_set import request_set_array, request_sort_set_array, request_json
+from libs.request_set import request_json
 from libs.limit_offset import limit_and_offset
-from libs.parsring_order import parsring_order
 from libs.validate.validate import validate
 from libs.token.token import validate_admin
-from libs.template.validate_template import is_option_type_str, is_option_type_boolean_string, limit_offset, params_order
+from libs.template.validate_template import is_option_type_str, is_option_type_boolean_string, limit_offset, \
+    params_order
 
 
 # валидация параметров для получение users admin
@@ -57,21 +58,11 @@ def validate_params_query_all(params):
     validate(params, schema)
 
 
-# Параметры фильтров для получение users admin
-# def get_params_query_filter(request, params_sql):
-#     name_array = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
-#     request_set_array(request, name_array, params_sql)
-
-
 # Параметры сортировка для получение users admin
 def get_params_query_sort(request, params_sql):
-    params_sort = {}
     name_array_column = ['fio', 'nik', 'email', 'is_admin', 'is_user', 'is_active']
     name_array_query = ['sort_fio', 'sort_nik', 'sort_email', 'sort_is_admin', 'sort_is_user', 'sort_is_active']
-    request_sort_set_array(request, name_array_column, name_array_query, params_sort)
-    order = parsring_order(params_sort)
-    if order:
-        params_sql['order'] = parsring_order(params_sort)
+    order_generation(request, params_sql, 'order', name_array_column, name_array_query)
 
 
 # Параметры для получение users admin
@@ -81,9 +72,7 @@ def get_params_query_all(params_request):
         'limit': limit,
         'offset': offset,
     }
-
     get_params_query_sort(params_request, params_sql)
-
     return params_sql
 
 
@@ -106,7 +95,7 @@ def map_get_user(users):
 
 # получение users admin в виде json
 def get_users(request):
-    users_my = validate_admin(request)
+    validate_admin(request)
     # параметры мап
     params_request = request_json(request)
     # параметры валидация

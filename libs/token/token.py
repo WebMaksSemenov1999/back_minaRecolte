@@ -33,7 +33,7 @@ def is_user_null(user):
 
 
 def is_user_active(user):
-    if not user['active']:
+    if not user['is_active']:
         abort(403, "Пользователь не активен")
 
 
@@ -56,11 +56,12 @@ def is_token(request):
     # Наличие пользователя
     is_user_null(user)
     user_map = map_get_user_token(user)
+    print(user_map)
     # Активность пользователя
-    is_user_active(user)
+    is_user_active(user_map)
     # Валидность токена
     is_token_validate(user_map['token'])
-    print(user_map)
+
     return user_map
 
 
@@ -68,7 +69,7 @@ def validate_admin(request):
     users = is_token(request)
     if not users['is_admin']:
         abort(403, "доступ запрещен")
-    return  users
+    return users
 
 
 def validate_user(request):
