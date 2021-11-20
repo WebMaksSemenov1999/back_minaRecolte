@@ -1,6 +1,7 @@
 from bd import cur
 from sql_fun.users import users_where_token
 from flask import abort
+import datetime
 
 
 def map_get_user_token(user):
@@ -21,20 +22,26 @@ def map_get_user_token(user):
     }
 
 
-def token_null(authorization):
+def is_token_null(authorization):
     if not authorization:
         abort(403, "Токен не указан")
 
 
-def user_null(user):
+def is_user_null(user):
     if not user:
         abort(403, "Токен не валидный")
 
 
-def token(request):
+def is_token_validate(token):
+    now = datetime.datetime.now()
+    if not token['active'] and now > token['date']:
+        abort(403, "Токен не валидный")
+
+
+def is_token(request):
     authorization = request.headers.get('authorization')
     # Наличие токена
-    token_null(authorization)
+    is_token_null(authorization)
     params = {
         "token": authorization
     }
@@ -42,13 +49,17 @@ def token(request):
     cur.execute(sql)
     user = cur.fetchone()
     # Наличие пользователя
-    user_null(user)
+    is_user_null(user)
     user_map = map_get_user_token(user)
+    is_token_validate(user_map['token'])
     print(user_map)
+    return user_map
 
 
 def validate_admin(request):
-    token(request)
+    users = is_token(request)
+    if not users['is_admin']:
+        abort(403, "доступ запрещен")
 
 
 def validate_users():
