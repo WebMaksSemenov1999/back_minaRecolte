@@ -1,4 +1,4 @@
-def parsring_order(obj):
+def parsing_order(obj):
     string_order = ""
     for key in obj:
         if obj[key] == 'true':
