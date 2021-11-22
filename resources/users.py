@@ -1,6 +1,10 @@
 from flask_restful import Resource
-from  server.users import getUsers
+
+from server.users.users_get_admin import get_users
+from flask import request
+
 
 class Users(Resource):
+    # получить пользователей admin all
     def get(self):
-        return getUsers()
+        return get_users(request)

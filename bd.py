@@ -10,5 +10,6 @@ try:
         password="postgres",
     )
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    cur = conn.cursor()
 except (Exception, Error) as error:
     print("Ошибка при работе с PostgreSQL", error)
