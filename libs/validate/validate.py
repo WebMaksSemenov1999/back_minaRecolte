@@ -5,6 +5,7 @@ from libs.validate.libs.boolean_number import boolean_number
 from libs.validate.libs.is_int import is_int
 from libs.validate.libs.is_boolean import is_boolean
 from libs.validate.libs.min_value import min_value
+from libs.validate.libs.max_value import max_value
 from flask import abort
 
 
@@ -26,8 +27,12 @@ def validate(data, schema):
         # проверка на 1 или 0 в виде строки
         if 'boolean_number' in schema[elem]['regulations']:
             boolean_number(data, schema[elem]['regulations']['boolean_number'], elem, errors)
+        # минимальное значение
         if 'min_value' in schema[elem]['regulations']:
             min_value(data, schema[elem]['regulations']['is_int'], elem, errors)
+            # максимальное значение
+        if 'max_value' in schema[elem]['regulations']:
+            max_value(data, schema[elem]['regulations']['is_int'], elem, errors)
         # проверка на целое число
         if 'is_int' in schema[elem]['regulations']:
             is_int(data, schema[elem]['regulations']['is_int'], elem, errors)
