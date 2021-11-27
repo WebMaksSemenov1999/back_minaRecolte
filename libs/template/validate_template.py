@@ -7,6 +7,14 @@ is_option_type_str = {
         }
     },
 }
+
+type_string = {
+    "type": {
+        "value": str,
+        "errors": "данное поле является строкой",
+    }
+}
+
 required_params = {
     "required": {
         "errors": "данное поле является обязательным",
@@ -40,6 +48,7 @@ params_order = {
 params_nik = {
     "regulations": {
         **required_params,
+        **type_string,
         "min_value": {
             "value": 6,
             "errors": "Минимальное значение ника не должно быть меньше 6 символов"

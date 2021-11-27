@@ -1,4 +1,4 @@
-from flask import jsonify
+import json
 
 
 def request_set(request, name, params_object):
@@ -20,10 +20,10 @@ def request_sort_set_array(request, name_array_column, name_array_query, params_
 
 
 def request_json(data):
-    json = {}
+    json_res = {}
     for k, v in data:
-        json[k] = v
-    return json
+        json_res[k] = v
+    return json_res
 
 
 def request_json_params(request):
@@ -31,7 +31,6 @@ def request_json_params(request):
 
 
 def request_json_body(request):
-    data = request.get_json()
-    return data
+    return json.loads(request.data)
 
 

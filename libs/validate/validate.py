@@ -18,21 +18,21 @@ def validate(data, schema):
         # обязательное поле
         if 'required' in schema[elem]['regulations']:
             is_required(data, schema[elem]['regulations']['required'], elem, errors)
-            # проверка на существование логики и дальнейшней валидации
             if is_object(data, elem):
-                return errors
+                continue
         # проверка на тип переменной
         if 'type' in schema[elem]['regulations']:
-            is_type(data, schema[elem]['regulations']['type'], elem, errors)
+            if is_type(data, schema[elem]['regulations']['type'], elem, errors):
+                continue
         # проверка на 1 или 0 в виде строки
         if 'boolean_number' in schema[elem]['regulations']:
             boolean_number(data, schema[elem]['regulations']['boolean_number'], elem, errors)
         # минимальное значение
         if 'min_value' in schema[elem]['regulations']:
-            min_value(data, schema[elem]['regulations']['is_int'], elem, errors)
+            min_value(data, schema[elem]['regulations']['min_value'], elem, errors)
             # максимальное значение
         if 'max_value' in schema[elem]['regulations']:
-            max_value(data, schema[elem]['regulations']['is_int'], elem, errors)
+            max_value(data, schema[elem]['regulations']['max_value'], elem, errors)
         # проверка на целое число
         if 'is_int' in schema[elem]['regulations']:
             is_int(data, schema[elem]['regulations']['is_int'], elem, errors)
