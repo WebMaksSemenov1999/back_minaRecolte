@@ -7,6 +7,11 @@ is_option_type_str = {
         }
     },
 }
+required_params = {
+    "required": {
+        "errors": "данное поле является обязательным",
+    }
+}
 
 is_option_type_boolean_number = {
     "regulations": {
