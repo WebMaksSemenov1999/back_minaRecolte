@@ -8,10 +8,10 @@ is_option_type_str = {
     },
 }
 
-is_option_type_boolean_string = {
+is_option_type_boolean_number = {
     "regulations": {
         "is_option": True,
-        "boolean_string": {
+        "boolean_number": {
             "errors": "данное поле имеет значение 1 или 0",
         }
     },

@@ -5,7 +5,7 @@ from libs.request_set import request_json
 from libs.limit_offset import limit_and_offset
 from libs.validate.validate import validate
 from libs.token.token import validate_admin
-from libs.template.validate_template import is_option_type_str, is_option_type_boolean_string, limit_offset, \
+from libs.template.validate_template import is_option_type_str, is_option_type_boolean_number, limit_offset, \
     params_order
 
 
@@ -22,13 +22,13 @@ def validate_params_query_all(params):
                **is_option_type_str
         },
         "is_active": {
-            **is_option_type_boolean_string,
+            **is_option_type_boolean_number,
         },
         "is_user": {
-            **is_option_type_boolean_string,
+            **is_option_type_boolean_number,
         },
         "is_admin": {
-            **is_option_type_boolean_string,
+            **is_option_type_boolean_number,
         },
         "limit": {
             **limit_offset
