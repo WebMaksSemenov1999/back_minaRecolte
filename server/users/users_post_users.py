@@ -1,6 +1,6 @@
-from libs.request_set import request_json
+from libs.request_set import request_json_body
 from libs.validate.validate import validate
-from libs.template.validate_template import required_params
+from libs.template.validate_template import required_params, params_nik
 
 
 def validate_params_query_all(params):
@@ -11,7 +11,7 @@ def validate_params_query_all(params):
             }
         },
         "nik": {
-
+            **params_nik,
         },
         "email": {
 
@@ -29,5 +29,8 @@ def validate_params_query_all(params):
 # регистрация users
 def post_users(request):
     # параметры мап
-    params_request = request_json(request)
+    params_request = request_json_body(request)
+    # print(params_request)
     # параметры валидация
+    # validate_params_query_all(params_request)
+

@@ -1,3 +1,6 @@
+from flask import jsonify
+
+
 def request_set(request, name, params_object):
     if name in request:
         params_object[name] = request[name]
@@ -16,8 +19,17 @@ def request_sort_set_array(request, name_array_column, name_array_query, params_
             params_object[name_array_column[index]] = request[name]
 
 
-def request_json(request):
+def request_json(data):
     json = {}
-    for k, v in request.args.items():
+    for k, v in data:
         json[k] = v
     return json
+
+
+def request_json_params(request):
+    return request_json(request.args.items())
+
+
+
+
+

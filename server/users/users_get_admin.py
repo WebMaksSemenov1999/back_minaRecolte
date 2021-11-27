@@ -1,7 +1,7 @@
 from libs.order.order_generation import order_generation
 from sql_fun.users import users_select_all
 from bd import cur
-from libs.request_set import request_json
+from libs.request_set import request_json_params
 from libs.limit_offset import limit_and_offset
 from libs.validate.validate import validate
 from libs.token.token import validate_admin
@@ -97,7 +97,7 @@ def map_get_user(users):
 def get_users(request):
     validate_admin(request)
     # параметры мап
-    params_request = request_json(request)
+    params_request = request_json_params(request)
     # параметры валидация
     validate_params_query_all(params_request)
     # параметры

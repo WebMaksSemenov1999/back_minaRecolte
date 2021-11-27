@@ -37,3 +37,16 @@ params_order = {
         },
     },
 }
+params_nik = {
+    "regulations": {
+        **required_params,
+        "min_value": {
+            "value": 6,
+            "errors": "Минимальное значение ника не должно быть меньше 6 символов"
+        },
+        "max_value": {
+            "value": 20,
+            "errors": "Максимальное значение ника не должно быть больше 20 символов"
+        }
+    }
+}
