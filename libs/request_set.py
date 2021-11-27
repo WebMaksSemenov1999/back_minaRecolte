@@ -30,6 +30,8 @@ def request_json_params(request):
     return request_json(request.args.items())
 
 
-
+def request_json_body(request):
+    data = request.get_json()
+    return data
 
 

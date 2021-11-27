@@ -30,6 +30,7 @@ def validate_params_query_all(params):
 def post_users(request):
     # параметры мап
     params_request = request_json_body(request)
+    return params_request
     # print(params_request)
     # параметры валидация
     # validate_params_query_all(params_request)
