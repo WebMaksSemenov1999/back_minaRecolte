@@ -1,11 +1,11 @@
 from flask import Flask
-from app import api_bp
+from app import bp
 
 
 def create_app():
     app = Flask(__name__)
     app.config['JSON_AS_ASCII'] = False
-    app.register_blueprint(api_bp, url_prefix='/api')
+    app.register_blueprint(bp, url_prefix='/api')
     return app
 
 
